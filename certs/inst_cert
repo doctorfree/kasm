@@ -1,0 +1,4 @@
+#!/bin/bash
+
+sudo cp kasm_nginx.crt /opt/kasm/current/certs
+sudo cp kasm_nginx.key /opt/kasm/current/certs

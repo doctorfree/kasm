@@ -1,0 +1,22 @@
+# dirs
+certs-priv
+kasm-registry
+tmp
+workspaces-images
+
+# certs/keys
+**.pem
+**.crt
+**.key
+
+# credentials
+creds
+gitea_oauth
+
+# vim files
+.*.sw[a-z]
+*.un~
+Session.vim
+.netrwhist
+tmux*log
+.DS_Store

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+sudo /opt/kasm/bin/stop
+# sudo systemctl stop nginx

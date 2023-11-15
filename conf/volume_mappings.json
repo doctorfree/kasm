@@ -1,0 +1,10 @@
+{
+  "/u/kasm_user_share": {
+   "bind":"/share",
+   "mode":"rw",
+   "uid": 1000,
+   "gid": 1000,
+   "required": true,
+   "skip_check": false
+  }
+}

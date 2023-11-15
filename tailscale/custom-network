@@ -1,0 +1,7 @@
+#!/bin/bash
+
+sudo docker network create \
+  --driver=bridge \
+  --opt icc=true \
+  --subnet=172.20.0.0/16 \
+  vpn-1

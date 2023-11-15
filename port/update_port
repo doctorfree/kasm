@@ -1,0 +1,30 @@
+#!/bin/bash
+#
+# See https://www.kasmweb.com/docs/latest/how_to/port_change.html
+
+[ -d conf ] || mkdir conf
+[ -d conf/app ] || mkdir conf/app
+
+sudo /opt/kasm/current/bin/stop
+
+cp /opt/kasm/current/conf/app/agent.app.config.yaml conf/app/agent.app.config.yaml
+sudo sed -i "s/public_port.*/public_port: 8443/g" /opt/kasm/current/conf/app/agent.app.config.yaml
+
+[ -d conf/nginx ] || mkdir conf/nginx
+cp /opt/kasm/current/conf/nginx/orchestrator.conf conf/nginx/orchestrator.conf
+sudo sed -i "s/listen.*/listen 8443 ssl ;/g" /opt/kasm/current/conf/nginx/orchestrator.conf
+
+[ -d docker ] || mkdir docker
+cp /opt/kasm/current/docker/docker-compose.yaml docker/docker-compose.yaml
+sudo sed -i "s/- \"443:443\"/- \"8443:8443\"/g"  /opt/kasm/current/docker/docker-compose.yaml
+
+sudo docker rm -f kasm_proxy
+
+sudo /opt/kasm/current/bin/start
+
+printf "\n\nChange the Proxy Port in the Zone settings:\n"
+printf "\n\t1. Log into the Kasm UI as an administrator"
+printf "\n\t2. Select Infrastructure -> Zones"
+printf "\n\t3. Select Edit next to each Zone"
+printf "\n\t4. Change the Proxy Port setting to the desired value. (e.g 8443)"
+printf "\n\t5. Click Save\n\n"

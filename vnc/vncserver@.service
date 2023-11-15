@@ -1,0 +1,29 @@
+# Install as /etc/systemd/system/vncserver.service
+[Unit]
+Description=Remote desktop service (KasmVNC) for :%i display
+
+# Require start of
+Requires=display-manager.service
+
+# Wait for
+After=network-online.target
+After=display-manager.service
+
+[Service]
+#User=hbadmin
+#Group=hbadmin
+#WorkingDirectory=/home/hbadmin
+
+# Set environment
+#Environment=HOME=/home/hbadmin
+
+# Start command
+ExecStart=vncserver :%i -select-de mate
+ExecStop=vncserver -kill :%i
+
+# Restart service after session log out
+Restart=on-failure
+RestartSec=500ms
+
+[Install]
+WantedBy=multi-user.target

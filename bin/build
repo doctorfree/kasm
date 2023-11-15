@@ -1,0 +1,51 @@
+#!/bin/bash
+#
+# build - build the doctorwhen/kasm:<arg> Docker image to be used in
+#         the Kasm Workspaces registry
+#
+# Requires a Github API token set in the environment as GH_TOKEN
+# Must be run on the Kasm Workspaces server
+
+usage() {
+  printf "\nUsage: bin/build image"
+  printf "\nWhere 'image' is one of:"
+  printf "\n\tasciiville"
+  printf "\n\tfocal"
+  printf "\n\tjammy"
+  printf "\n\tjupyter"
+  printf "\n\tneovim"
+  printf "\n\twing"
+  printf "\n\twing-neovim\n"
+  exit 1
+}
+
+[ "$1" ] || usage
+
+tag="$1"
+IMG_NAME="doctorwhen/kasm:${tag}"
+
+rm -rf workspaces-images
+git clone https://github.com/doctorfree/workspaces-images.git
+
+cd workspaces-images
+[ -x bin/build-${tag} ] || {
+  printf "\nERROR: No build script bin/build-${tag} in workspaces-images"
+  printf "\nExiting"
+  usage
+}
+
+[ "${GH_API_TOKEN}" ] && export GH_TOKEN="${GH_API_TOKEN}"
+[ "${GH_TOKEN}" ] || {
+  [ -f $HOME/.private ] && source $HOME/.private
+  [ "${GH_API_TOKEN}" ] && export GH_TOKEN="${GH_API_TOKEN}"
+}
+[ "${GH_TOKEN}" ] || {
+  printf "\nNo Github token set in the environment"
+  printf "\nSet GH_TOKEN in $HOME/.private"
+  printf "\nExiting\n"
+  exit 1
+}
+
+sudo docker image rm ${IMG_NAME} 2>/dev/null
+
+bin/build-${tag}

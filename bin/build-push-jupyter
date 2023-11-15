@@ -1,0 +1,18 @@
+#!/bin/bash
+
+SCRIPT_PATH="$( cd "$(dirname "$0")" ; pwd -P )"
+
+${SCRIPT_PATH}/build-jupyter-foundation
+sudo docker push doctorwhen/kasm:jupyter-foundation
+
+${SCRIPT_PATH}/build-jupyter-base
+sudo docker push doctorwhen/kasm:jupyter-base
+
+${SCRIPT_PATH}/build-jupyter-minimal
+sudo docker push doctorwhen/kasm:jupyter-minimal
+
+${SCRIPT_PATH}/build-jupyter-scipy
+sudo docker push doctorwhen/kasm:jupyter-scipy
+
+${SCRIPT_PATH}/build-jupyter-datascience
+sudo docker push doctorwhen/kasm:jupyter-datascience

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+sudo docker run -d \
+  --cap-add NET_ADMIN \
+  --name tailscaled \
+  --net vpn-1 \
+  --ip 172.20.0.2 \
+  --restart unless-stopped \
+  tailscaled

@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# restart all services on a server
+cd /opt/kasm/bin
+sudo ./stop
+sudo ./start
+
+# restart individual components
+# sudo docker restart kasm_agent
+# sudo docker restart kasm_api
+# sudo docker restart kasm_manager
+# sudo docker restart kasm_db
+# sudo docker restart kasm_proxy

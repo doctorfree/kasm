@@ -1,0 +1,4 @@
+#!/bin/bash
+
+sudo cp fullchain.pem /opt/kasm/current/certs/kasm_nginx.crt
+sudo cp privkey.pem /opt/kasm/current/certs/kasm_nginx.key

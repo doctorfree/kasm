@@ -1,0 +1,82 @@
+agent:
+  auto_generate_kasm_docker_networks: false
+  default_host_key: 1234
+  disk_usage_limit: 0.9
+  docker_port_listen_addr: localhost
+  docker_script_timeout: 180
+  forward_logs_to_manager: true
+  heartbeat_interval: 30000
+  images_interval: 3600
+  log_container_stats: false
+  log_heartbeat_data: false
+  max_concurrent_docker_pulls: 2
+  nginx_container_dir: /etc/nginx/conf.d/containers.d/
+  persist_config_interval: 100000
+  persist_config_updates: true
+  port: 4444
+  provider: hardware
+  public_hostname: proxy
+  public_port: 8443
+  remove_failed_containers: true
+  server_id: 77a32b00-fd67-47a8-ab39-05773ac0a0a4
+  starting_nginx_port: 5971
+  type: host
+  validate_images: true
+logging:
+  agent:
+    formatters:
+      pythonjsonlogger:
+        (): pythonjsonlogger.jsonlogger.JsonFormatter
+        fmt: '%(asctime) %(name) %(processName) %(filename)  %(funcName) %(levelname)
+          %(lineno) %(module) %(threadName) %(message)'
+        timestamp: true
+      standard:
+        format: '%(asctime)s [%(levelname)s] %(name)s: %(message)s'
+    handlers:
+      file_handler:
+        backupCount: 5
+        class: logging.handlers.RotatingFileHandler
+        encoding: utf8
+        filename: /opt/kasm/current/log/agent.log
+        formatter: standard
+        level: DEBUG
+        maxBytes: 10485760
+      file_handler_json:
+        backupCount: 5
+        class: logging.handlers.RotatingFileHandler
+        encoding: utf8
+        filename: /opt/kasm/current/log/agent_json.log
+        formatter: pythonjsonlogger
+        level: DEBUG
+        maxBytes: 10485760
+      stream:
+        class: logging.StreamHandler
+        formatter: standard
+        level: DEBUG
+      syslog:
+        class: logging.handlers.SysLogHandler
+        formatter: pythonjsonlogger
+        level: DEBUG
+    loggers:
+      ? ''
+      : handlers:
+        - stream
+        - syslog
+        - file_handler
+        - file_handler_json
+        level: DEBUG
+        propagate: true
+      tornado:
+        level: INFO
+    version: 1
+manager:
+  client_cert: /srv/provision_agent/client_cert.pem
+  heartbeat_path: /manager_api/api/v1/heartbeat
+  hostnames:
+  - proxy
+  - kasm01.hornblower.com
+  images_path: /manager_api/api/v1/images
+  public_port: 8443
+  scheme: https
+  server_cert: /srv/provision_agent/server_cert.pem
+  token: qbW0ZwBuANAiemP2ZYpX

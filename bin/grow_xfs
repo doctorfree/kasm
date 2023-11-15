@@ -1,0 +1,18 @@
+#!/bin/bash
+#
+# Stop Kasm
+sudo /opt/kasm/bin/stop
+
+# Unmount filesystem
+sudo umount /dev/sdb1
+
+# Resize partition
+sudo parted -a optimal /dev/sdb
+
+# Use full partition
+sudo xfs_growfs -d /dev/sdb1
+
+df
+
+# Restart Kasm
+sudo /opt/kasm/bin/start

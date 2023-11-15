@@ -1,0 +1,18 @@
+#!/bin/bash
+#
+# Doc: https://www.kasmweb.com/kasmvnc/docs/1.0.0/index.html
+# Github: https://github.com/kasmtech/KasmVNC
+#
+# Install on an external stand alone Ubuntu Linux machine
+
+REL="https://github.com/kasmtech/KasmVNC/releases/download"
+VER="1.2.0"
+
+wget ${REL}/v${VER}/kasmvncserver_jammy_${VER}_amd64.deb
+sudo apt install ./kasmvncserver_*.deb
+rm -f ./kasmvncserver_*.deb
+
+sudo addgroup $USER ssl-cert
+
+vncserver
+tail -f ~/.vnc/*.log

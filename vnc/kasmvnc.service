@@ -1,0 +1,28 @@
+[Unit]
+Description=Remote desktop service (KasmVNC) for :2 display
+
+# Require start of
+Requires=display-manager.service
+
+# Wait for
+After=network-online.target
+After=display-manager.service
+
+[Service]
+User=kasmvnc
+Group=kasmvnc
+WorkingDirectory=/home/kasmvnc
+
+# Set environment
+Environment=HOME=/home/kasmvnc
+
+# Start command
+ExecStart=vncserver :2 -select-de mate
+ExecStop=vncserver -kill :2
+
+# Restart service after session log out
+Restart=on-failure
+RestartSec=500ms
+
+[Install]
+WantedBy=multi-user.target

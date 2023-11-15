@@ -1,0 +1,21 @@
+kasmguac:
+  id: 8f0d6e5e-62a9-4962-96fc-91877a7bee33
+  port: 3000
+  cluster_size: 2
+  server_address: kasm_guac
+  server_port: 443
+  zone: default
+
+  kasm_delete_session_watch_interval: 60
+  logging:
+    errorEventName: error
+    logDirectory: /opt/kasm/current/log/
+    fileNamePattern: kasmguac-<DATE>.log
+    dateFormat: YYYY.MM.DD
+    timestampFormat: YYYY-MM-DD HH:mm:ss.SSS
+api:
+  hostnames: ['proxy','kasm01.hornblower.com']
+  port: 443
+  auth_token: Dw6qGkL5yJAOyNMYrM9Y6k
+  allow_self_signed_cert: true
+  hostname_refresh_interval: 30

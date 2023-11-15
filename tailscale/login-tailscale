@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# sudo docker exec tailscaled tailscale up --authkey=<AUTH KEY FROM PREVIOUS STEP>
+# sudo docker exec tailscaled tailscale up --help
+sudo docker exec tailscaled \
+  tailscale up \
+  --accept-routes \
+  --accept-dns \
+  --login-server https://hsc01.hornblower.com

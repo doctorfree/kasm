@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# sudo systemctl start nginx
+sudo /opt/kasm/bin/start
