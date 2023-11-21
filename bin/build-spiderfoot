@@ -32,9 +32,13 @@ j
 cd ${REPO}
 
 PATH_PRIVS=$(dirname ${SCRIPT_PATH})
+echo "$PATH_PRIVS"
 PATH_PRIVS="${PATH_PRIVS}/${REPO}/kasm/install"
+echo "$PATH_PRIVS"
 PRIVS="${PATH_PRIVS}/kasm-user/bin/install-jetbrains \
        ${PATH_PRIVS}/kasm-user/.config/autostart/postinstall.desktop"
+echo "$PRIVS"
+
 for priv in ${PRIVS}
 do
   [ -f ${priv} ] && {
@@ -46,8 +50,10 @@ do
   }
 done
 
+echo "sudo docker build --no-cache -t ${IMG_NAME} -f Dockerfile ."
 sudo docker build --no-cache -t ${IMG_NAME} -f Dockerfile .
 
+echo "Cleanup"
 for priv in ${PRIVS}
 do
   bpriv=$(basename ${priv})
