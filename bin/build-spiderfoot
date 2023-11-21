@@ -1,0 +1,53 @@
+#!/bin/bash
+#
+# build-spiderfoot - build the doctorwhen/kasm:spiderfoot Docker image to be used in
+#                       the Kasm ArchLinux development Workspace
+#
+# Requires a Github API token set in the environment as GH_TOKEN
+# Must be run on the Kasm Workspaces server
+
+IMG_NAME="doctorwhen/kasm:spiderfoot"
+
+SCRIPT_PATH="$( cd "$(dirname "$0")" ; pwd -P )"
+SCRIPT_PATH="$(realpath $SCRIPT_PATH)"
+cd $(dirname "${SCRIPT_PATH}")
+
+sudo docker image rm ${IMG_NAME} 2>/dev/null
+rm -rf spiderfoot-kasm
+git clone https://github.com/doctorfree/spiderfoot-kasm.git
+
+[ "${GH_API_TOKEN}" ] && export GH_TOKEN="${GH_API_TOKEN}"
+[ "${GH_TOKEN}" ] || {
+  [ -f $HOME/.private ] && source $HOME/.private
+  [ "${GH_API_TOKEN}" ] && export GH_TOKEN="${GH_API_TOKEN}"
+}
+[ "${GH_TOKEN}" ] || {
+  printf "\nNo Github token set in the environment"
+  printf "\nSet GH_TOKEN in $HOME/.private"
+  printf "\nExiting\n"
+  exit 1
+j
+
+cd spiderfoot-kasm
+
+PATH_PRIVS=$(dirname ${SCRIPT_PATH})
+PATH_PRIVS="${PATH_PRIVS}/kasm"
+PRIVS="${PATH_PRIVS}/kasm-user/.config/autostart/postinstall.desktop"
+for priv in ${PRIVS}
+do
+  [ -f ${priv} ] && {
+    bpriv=$(basename ${priv})
+    cp ${priv} /tmp/${bpriv}-$$
+    cat ${priv} | sed -e "s/__GITHUB_API_TOKEN__/${GH_TOKEN}/" > /tmp/gh$$
+    cp /tmp/gh$$ ${priv}
+    rm -f /tmp/gh$$
+  }
+done
+
+sudo docker build --no-cache -t doctorwhen/kasm:spiderfoot -f Dockerfile .
+
+for priv in ${PRIVS}
+do
+  bpriv=$(basename ${priv})
+  [ -f /tmp/${bpriv}-$$ ] && mv /tmp/${bpriv}-$$ ${priv}
+done
