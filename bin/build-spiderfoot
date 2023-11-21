@@ -1,17 +1,13 @@
 #!/bin/bash
 #
 # build-spiderfoot - build the doctorwhen/kasm:spiderfoot Docker image to be used in
-#                       the Kasm ArchLinux development Workspace
+#                    the Kasm Spiderfoot Workspace
 #
 # Requires a Github API token set in the environment as GH_TOKEN
 # Must be run on the Kasm Workspaces server
 
 IMG_NAME="doctorwhen/kasm:spiderfoot"
 REPO="spiderfoot-kasm"
-
-SCRIPT_PATH="$( cd "$(dirname "$0")" ; pwd -P )"
-SCRIPT_PATH="$(realpath $SCRIPT_PATH)"
-cd $(dirname "${SCRIPT_PATH}")
 
 sudo docker image rm ${IMG_NAME} 2>/dev/null
 rm -rf ${REPO}
@@ -27,35 +23,7 @@ git clone https://github.com/doctorfree/${REPO}
   printf "\nSet GH_TOKEN in $HOME/.private"
   printf "\nExiting\n"
   exit 1
-j
+}
 
 cd ${REPO}
-
-PATH_PRIVS=$(dirname ${SCRIPT_PATH})
-echo "$PATH_PRIVS"
-PATH_PRIVS="${PATH_PRIVS}/${REPO}/kasm/install"
-echo "$PATH_PRIVS"
-PRIVS="${PATH_PRIVS}/kasm-user/bin/install-jetbrains \
-       ${PATH_PRIVS}/kasm-user/.config/autostart/postinstall.desktop"
-echo "$PRIVS"
-
-for priv in ${PRIVS}
-do
-  [ -f ${priv} ] && {
-    bpriv=$(basename ${priv})
-    cp ${priv} /tmp/${bpriv}-$$
-    cat ${priv} | sed -e "s/__GITHUB_API_TOKEN__/${GH_TOKEN}/" > /tmp/gh$$
-    cp /tmp/gh$$ ${priv}
-    rm -f /tmp/gh$$
-  }
-done
-
-echo "sudo docker build --no-cache -t ${IMG_NAME} -f Dockerfile ."
-sudo docker build --no-cache -t ${IMG_NAME} -f Dockerfile .
-
-echo "Cleanup"
-for priv in ${PRIVS}
-do
-  bpriv=$(basename ${priv})
-  [ -f /tmp/${bpriv}-$$ ] && mv /tmp/${bpriv}-$$ ${priv}
-done
+kasm/build-spiderfoot
