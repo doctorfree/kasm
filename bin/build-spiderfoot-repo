@@ -7,7 +7,7 @@
 # Must be run on the Kasm Workspaces server
 
 IMG_NAME="doctorwhen/kasm:spiderfoot"
-REPO="workspaces-images"
+REPO="spiderfoot-kasm"
 
 sudo docker image rm ${IMG_NAME} 2>/dev/null
 rm -rf ${REPO}
@@ -26,4 +26,4 @@ git clone https://github.com/doctorfree/${REPO}
 }
 
 cd ${REPO}
-bin/build-spiderfoot
+kasm/build-spiderfoot
