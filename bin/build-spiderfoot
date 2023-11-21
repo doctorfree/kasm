@@ -7,14 +7,15 @@
 # Must be run on the Kasm Workspaces server
 
 IMG_NAME="doctorwhen/kasm:spiderfoot"
+REPO="spiderfoot-kasm"
 
 SCRIPT_PATH="$( cd "$(dirname "$0")" ; pwd -P )"
 SCRIPT_PATH="$(realpath $SCRIPT_PATH)"
 cd $(dirname "${SCRIPT_PATH}")
 
 sudo docker image rm ${IMG_NAME} 2>/dev/null
-rm -rf spiderfoot-kasm
-git clone https://github.com/doctorfree/spiderfoot-kasm.git
+rm -rf ${REPO}
+git clone https://github.com/doctorfree/${REPO}
 
 [ "${GH_API_TOKEN}" ] && export GH_TOKEN="${GH_API_TOKEN}"
 [ "${GH_TOKEN}" ] || {
@@ -28,10 +29,10 @@ git clone https://github.com/doctorfree/spiderfoot-kasm.git
   exit 1
 j
 
-cd spiderfoot-kasm
+cd ${REPO}
 
 PATH_PRIVS=$(dirname ${SCRIPT_PATH})
-PATH_PRIVS="${PATH_PRIVS}/kasm"
+PATH_PRIVS="${PATH_PRIVS}/${REPO}/kasm/install"
 PRIVS="${PATH_PRIVS}/kasm-user/bin/install-jetbrains \
        ${PATH_PRIVS}/kasm-user/.config/autostart/postinstall.desktop"
 for priv in ${PRIVS}
@@ -45,7 +46,7 @@ do
   }
 done
 
-sudo docker build --no-cache -t doctorwhen/kasm:spiderfoot -f Dockerfile .
+sudo docker build --no-cache -t ${IMG_NAME} -f Dockerfile .
 
 for priv in ${PRIVS}
 do
