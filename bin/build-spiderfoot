@@ -32,7 +32,8 @@ cd spiderfoot-kasm
 
 PATH_PRIVS=$(dirname ${SCRIPT_PATH})
 PATH_PRIVS="${PATH_PRIVS}/kasm"
-PRIVS="${PATH_PRIVS}/kasm-user/.config/autostart/postinstall.desktop"
+PRIVS="${PATH_PRIVS}/kasm-user/bin/install-jetbrains \
+       ${PATH_PRIVS}/kasm-user/.config/autostart/postinstall.desktop"
 for priv in ${PRIVS}
 do
   [ -f ${priv} ] && {
