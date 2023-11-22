@@ -3,7 +3,7 @@
 SCRIPT_PATH="$( cd "$(dirname "$0")" ; pwd -P )"
 SCRIPT_PATH="$(realpath $SCRIPT_PATH)"
 
-sudo docker login --username doctorwhen
+# sudo docker login --username doctorwhen
 
 ${SCRIPT_PATH}/build-jammy
 ${SCRIPT_PATH}/../workspaces-images/bin/push-jammy
@@ -13,8 +13,14 @@ ${SCRIPT_PATH}/../workspaces-images/bin/push-focal
 ${SCRIPT_PATH}/build-asciiville
 ${SCRIPT_PATH}/../workspaces-images/bin/push-asciiville
 
+${SCRIPT_PATH}/build-jupyter
+${SCRIPT_PATH}/../workspaces-images/bin/push-jupyter
+
 ${SCRIPT_PATH}/build-neovim
 ${SCRIPT_PATH}/../workspaces-images/bin/push-neovim
+
+${SCRIPT_PATH}/build-spiderfoot
+${SCRIPT_PATH}/../workspaces-images/bin/push-spiderfoot
 
 ${SCRIPT_PATH}/build-wing
 ${SCRIPT_PATH}/../workspaces-images/bin/push-wing
