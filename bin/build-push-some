@@ -1,0 +1,17 @@
+#!/bin/bash
+
+SCRIPT_PATH="$( cd "$(dirname "$0")" ; pwd -P )"
+SCRIPT_PATH="$(realpath $SCRIPT_PATH)"
+
+# sudo docker login --username doctorwhen
+
+${SCRIPT_PATH}/build-asciiville
+${SCRIPT_PATH}/../workspaces-images/bin/push-asciiville
+
+${SCRIPT_PATH}/build-neovim
+${SCRIPT_PATH}/../workspaces-images/bin/push-neovim
+
+${SCRIPT_PATH}/build-deluxe
+${SCRIPT_PATH}/../workspaces-images/bin/push-deluxe
+
+sudo docker image list
