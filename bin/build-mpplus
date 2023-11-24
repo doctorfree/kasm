@@ -1,12 +1,12 @@
 #!/bin/bash
 #
-# build-mpplus - build the doctorwhen/kasm:musicplayerplus Docker image to be used in
+# build-mpplus - build the doctorwhen/kasm:mpplus Docker image to be used in
 #                the Kasm MusicPlayerPlus Workspace
 #
 # Requires a Github API token set in the environment as GH_TOKEN
 # Must be run on the Kasm Workspaces server
 
-IMG_NAME="doctorwhen/kasm:musicplayerplus"
+IMG_NAME="doctorwhen/kasm:mpplus"
 
 sudo docker image rm ${IMG_NAME} 2>/dev/null
 rm -rf workspaces-images
