@@ -1,17 +1,12 @@
 #!/bin/bash
 #
-# build-focal - build the kasmweb/ubuntu-focal:dev Docker image to be used in
-#                       the Kasm Neovim Workspace which installs Neovim and Lazyman
+# build-focal - build the doctorwhen/kasm:ubuntu-focal Docker image to be used in
+#               the Kasm Ubuntu Focal Workspace
 #
 # Requires a Github API token set in the environment as GH_TOKEN
 # Must be run on the Kasm Workspaces server
 
-if [ "$1" == "kasmweb" ]
-then
-  IMG_NAME="kasmweb/ubuntu-focal:dev"
-else
-  IMG_NAME="doctorwhen/kasm:ubuntu-focal"
-fi
+IMG_NAME="doctorwhen/kasm:ubuntu-focal"
 
 sudo docker image rm ${IMG_NAME} 2>/dev/null
 rm -rf workspaces-images
@@ -30,4 +25,4 @@ git clone https://github.com/doctorfree/workspaces-images.git
 }
 
 cd workspaces-images
-bin/build-focal "$1"
+bin/build-focal
