@@ -1,17 +1,12 @@
 #!/bin/bash
 #
-# build-jammy - build the kasmweb/ubuntu-jammy:dev Docker image to be used in
-#                       the Kasm Neovim Workspace which installs Neovim and Lazyman
+# build-jammy - build the doctorwhen/kasm:ubuntu-jammy Docker image to be used in
+#               the Kasm Ubuntu Jammy Workspace
 #
 # Requires a Github API token set in the environment as GH_TOKEN
 # Must be run on the Kasm Workspaces server
 
-if [ "$1" == "kasmweb" ]
-then
-  IMG_NAME="kasmweb/ubuntu-jammy:dev"
-else
-  IMG_NAME="doctorwhen/kasm:ubuntu-jammy"
-fi
+IMG_NAME="doctorwhen/kasm:ubuntu-jammy"
 
 sudo docker image rm ${IMG_NAME} 2>/dev/null
 rm -rf workspaces-images
@@ -30,4 +25,4 @@ git clone https://github.com/doctorfree/workspaces-images.git
 }
 
 cd workspaces-images
-bin/build-jammy "$1"
+bin/build-jammy
