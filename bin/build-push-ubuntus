@@ -3,8 +3,6 @@
 SCRIPT_PATH="$( cd "$(dirname "$0")" ; pwd -P )"
 SCRIPT_PATH="$(realpath $SCRIPT_PATH)"
 
-sudo docker login --username doctorwhen
-
 ${SCRIPT_PATH}/build-jammy
 ${SCRIPT_PATH}/../workspaces-images/bin/push-jammy
 ${SCRIPT_PATH}/build-focal
