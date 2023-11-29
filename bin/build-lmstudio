@@ -1,11 +1,11 @@
 #!/bin/bash
 #
-# build-appimage - build the doctorwhen/kasm:appimage Docker image
+# build-lmstudio - build the doctorwhen/kasm:lmstudio Docker image
 #
 # Requires a Github API token set in the environment as GH_TOKEN
 # Must be run on the Kasm Workspaces server
 
-IMG_NAME="doctorwhen/kasm:appimage"
+IMG_NAME="doctorwhen/kasm:lmstudio"
 
 sudo docker image rm ${IMG_NAME} 2>/dev/null
 rm -rf workspaces-images
@@ -24,4 +24,4 @@ git clone https://github.com/doctorfree/workspaces-images.git
 }
 
 cd workspaces-images
-bin/build-appimage
+bin/build-lmstudio
