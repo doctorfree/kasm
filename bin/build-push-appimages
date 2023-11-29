@@ -1,0 +1,11 @@
+#!/bin/bash
+
+SCRIPT_PATH="$( cd "$(dirname "$0")" ; pwd -P )"
+SCRIPT_PATH="$(realpath $SCRIPT_PATH)"
+
+${SCRIPT_PATH}/build-appimage
+${SCRIPT_PATH}/../workspaces-images/bin/push-appimage
+${SCRIPT_PATH}/build-lmstudio
+${SCRIPT_PATH}/../workspaces-images/bin/push-lmstudio
+
+sudo docker image list
