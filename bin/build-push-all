@@ -3,29 +3,44 @@
 SCRIPT_PATH="$( cd "$(dirname "$0")" ; pwd -P )"
 SCRIPT_PATH="$(realpath $SCRIPT_PATH)"
 
+# Ubuntu desktops
 ${SCRIPT_PATH}/build-jammy
 ${SCRIPT_PATH}/../workspaces-images/bin/push-jammy
 ${SCRIPT_PATH}/build-focal
 ${SCRIPT_PATH}/../workspaces-images/bin/push-focal
 
+# Asciiville
 ${SCRIPT_PATH}/build-asciiville
 ${SCRIPT_PATH}/../workspaces-images/bin/push-asciiville
 
+# Jupyter
 ${SCRIPT_PATH}/build-jupyter
 ${SCRIPT_PATH}/../workspaces-images/bin/push-jupyter
 
+# Neovim
 ${SCRIPT_PATH}/build-neovim
 ${SCRIPT_PATH}/../workspaces-images/bin/push-neovim
 
+# SpiderFoot
 ${SCRIPT_PATH}/build-spiderfoot
 ${SCRIPT_PATH}/../workspaces-images/bin/push-spiderfoot
 
+# Winglang
 ${SCRIPT_PATH}/build-wing
 ${SCRIPT_PATH}/../workspaces-images/bin/push-wing
 ${SCRIPT_PATH}/build-wing-neovim
 ${SCRIPT_PATH}/../workspaces-images/bin/push-wing-neovim
 
+# Deluxe desktop
 ${SCRIPT_PATH}/build-deluxe
 ${SCRIPT_PATH}/../workspaces-images/bin/push-deluxe
+
+# AppImage Launcher
+${SCRIPT_PATH}/build-appimage
+${SCRIPT_PATH}/../workspaces-images/bin/push-appimage
+
+# LM Studio
+${SCRIPT_PATH}/build-lmstudio
+${SCRIPT_PATH}/../workspaces-images/bin/push-lmstudio
 
 sudo docker image list
