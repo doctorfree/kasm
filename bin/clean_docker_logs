@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# clean_docker_logs - zero out all container logs
+# clean_docker_logs - zero out all container logs larger than 250MB
 #                     must be run as root
 
 iamroot=
@@ -19,5 +19,7 @@ fi
 docker container list | awk ' { print $NF } ' | grep -v NAMES | \
 while read container_name
 do
-  echo "" > $(docker container inspect ${container_name} --format "{{ .LogPath }}")
+  path=$(docker container inspect ${container_name} --format "{{ .LogPath }}")
+  size=$(/bin/ls -s ${path} | awk '{ print $1 }')
+  [ ${size} -gt 250000 ] && echo "" > ${path}
 done

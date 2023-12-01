@@ -1,0 +1,49 @@
+#!/bin/bash
+#
+# All current workspace builds:
+# ${SCRIPT_PATH}/build-jammy
+# ${SCRIPT_PATH}/build-focal
+# ${SCRIPT_PATH}/build-asciiville
+# ${SCRIPT_PATH}/build-jupyter
+# ${SCRIPT_PATH}/build-neovim
+# ${SCRIPT_PATH}/build-spiderfoot
+# ${SCRIPT_PATH}/build-wing
+# ${SCRIPT_PATH}/build-wing-neovim
+# ${SCRIPT_PATH}/build-deluxe
+# ${SCRIPT_PATH}/build-appimage
+# ${SCRIPT_PATH}/build-lmstudio
+
+TOP="${HOME}/src/Kasm/workspaces-images/src/ubuntu/install"
+[ -d "${TOP}" ] || {
+  printf "\nCannot locate top of workspaces:"
+  printf "\n\t${TOP}"
+  printf "\nExiting\n"
+  exit 1
+}
+cd "${TOP}"
+
+for i in appimage asciiville deluxe focal jammy lmstudio neovim spiderfoot wing-neovim
+do
+  [ -x $i/kasm-user/bin/start-vscode ] || {
+    echo "Updating $i with start-vscode"
+    cp /tmp/start-vscode $i/kasm-user/bin/start-vscode
+  }
+  [ -f $i/kasm-user/.local/share/applications/ranger.desktop ] || {
+    echo "Updating $i with ranger.desktop"
+    cp /tmp/ranger.desktop $i/kasm-user/.local/share/applications/ranger.desktop
+  }
+  [ -f $i/kasm-user/Desktop/ranger.desktop ] || {
+    echo "Updating $i with Desktop ranger.desktop"
+    cp wing/kasm-user/Desktop/ranger.desktop $i/kasm-user/Desktop/ranger.desktop
+  }
+  [ -f $i/kasm-user/.local/share/icons/hicolor/256x256/apps/ranger.png ] || {
+    echo "Updating $i with ranger.png"
+    cp wing/kasm-user/.local/share/icons/hicolor/256x256/apps/ranger.png \
+         $i/kasm-user/.local/share/icons/hicolor/256x256/apps/ranger.png
+  }
+  [ -f $i/kasm-user/.config/kitty/sessions/ranger ] || {
+    echo "Updating $i with ranger session"
+    cp wing/kasm-user/.config/kitty/sessions/ranger \
+         $i/kasm-user/.config/kitty/sessions/ranger
+  }
+done

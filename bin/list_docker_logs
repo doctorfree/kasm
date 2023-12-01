@@ -18,5 +18,5 @@ fi
 docker container list | awk ' { print $NF } ' | grep -v NAMES | \
 while read container_name
 do
-  /bin/ls -l $(docker container inspect ${container_name} --format "{{ .LogPath }}")
+  /bin/ls -s $(docker container inspect ${container_name} --format "{{ .LogPath }}")
 done
