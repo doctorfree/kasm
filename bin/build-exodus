@@ -1,0 +1,28 @@
+#!/bin/bash
+#
+# build-exodus - build the doctorwhen/kasm:exodus Docker image to be used in
+#                the Kasm Exodus Workspace
+#
+# Requires a Github API token set in the environment as GH_TOKEN
+# Must be run on the Kasm Workspaces server
+
+IMG_NAME="doctorwhen/kasm:exodus"
+
+sudo docker image rm ${IMG_NAME} 2>/dev/null
+rm -rf workspaces-images
+git clone https://github.com/doctorfree/workspaces-images.git
+
+[ "${GH_API_TOKEN}" ] && export GH_TOKEN="${GH_API_TOKEN}"
+[ "${GH_TOKEN}" ] || {
+  [ -f $HOME/.private ] && source $HOME/.private
+  [ "${GH_API_TOKEN}" ] && export GH_TOKEN="${GH_API_TOKEN}"
+}
+[ "${GH_TOKEN}" ] || {
+  printf "\nNo Github token set in the environment"
+  printf "\nSet GH_TOKEN in $HOME/.private"
+  printf "\nExiting\n"
+  exit 1
+}
+
+cd workspaces-images
+bin/build-exodus
