@@ -1,17 +1,11 @@
 #!/bin/bash
 #
-# build-jupyter-foundation - build the kasmweb/jupyter-foundation:dev Docker image to be used in
-#                       the Kasm Neovim Workspace which installs Neovim and Lazyman
+# build-jupyter-foundation - build the doctorwhen/kasm:jupyter-foundation Docker image
 #
 # Requires a Github API token set in the environment as GH_TOKEN
 # Must be run on the Kasm Workspaces server
 
-if [ "$1" == "kasmweb" ]
-then
-  IMG_NAME="kasmweb/jupyter-foundation:dev"
-else
-  IMG_NAME="doctorwhen/kasm:jupyter-foundation"
-fi
+IMG_NAME="doctorwhen/kasm:jupyter-foundation"
 
 sudo docker image rm ${IMG_NAME} 2>/dev/null
 rm -rf workspaces-images
@@ -30,4 +24,4 @@ git clone https://github.com/doctorfree/workspaces-images.git
 }
 
 cd workspaces-images
-bin/build-jupyter-foundation "$1"
+bin/build-jupyter-foundation

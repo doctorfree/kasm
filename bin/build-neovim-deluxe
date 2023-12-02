@@ -1,17 +1,12 @@
 #!/bin/bash
 #
-# build-neovim-deluxe - build the kasmweb/neovim-deluxe:dev Docker image to be used in
+# build-neovim-deluxe - build the doctorwhen/kasm:neovim-deluxe:dev Docker image to be used in
 #                       the Kasm Neovim Workspace which installs Neovim and Lazyman
 #
 # Requires a Github API token set in the environment as GH_TOKEN
 # Must be run on the Kasm Workspaces server
 
-if [ "$1" == "kasmweb" ]
-then
-  IMG_NAME="kasmweb/neovim-deluxe:dev"
-else
-  IMG_NAME="doctorwhen/kasm:neovim-deluxe"
-fi
+IMG_NAME="doctorwhen/kasm:neovim-deluxe"
 
 sudo docker image rm ${IMG_NAME} 2>/dev/null
 rm -rf workspaces-images
@@ -30,4 +25,4 @@ git clone https://github.com/doctorfree/workspaces-images.git
 }
 
 cd workspaces-images
-bin/build-neovim-deluxe "$1"
+bin/build-neovim-deluxe

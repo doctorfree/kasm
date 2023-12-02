@@ -1,17 +1,12 @@
 #!/bin/bash
 #
-# build-asciiville - build the kasmweb/asciiville-minimal:dev Docker image to be used in
-#                    the Kasm Neovim Workspace which installs Neovim and Lazyman
+# build-asciiville - build the doctorwhen/kasm:asciiville-minimal Docker image
+#                    to be used in the Kasm Asciiville Minimal Workspace
 #
 # Requires a Github API token set in the environment as GH_TOKEN
 # Must be run on the Kasm Workspaces server
 
-if [ "$1" == "kasmweb" ]
-then
-  IMG_NAME="kasmweb/asciiville-minimal:dev"
-else
-  IMG_NAME="doctorwhen/kasm:asciiville-minimal"
-fi
+IMG_NAME="doctorwhen/kasm:asciiville-minimal"
 
 sudo docker image rm ${IMG_NAME} 2>/dev/null
 rm -rf workspaces-images
@@ -30,4 +25,4 @@ git clone https://github.com/doctorfree/workspaces-images.git
 }
 
 cd workspaces-images
-bin/build-asciiville-minimal "$1"
+bin/build-asciiville-minimal

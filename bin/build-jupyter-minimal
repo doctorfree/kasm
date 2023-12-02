@@ -1,17 +1,11 @@
 #!/bin/bash
 #
-# build-jupyter-minimal - build the kasmweb/jupyter-minimal:dev Docker image to be used in
-#                       the Kasm Neovim Workspace which installs Neovim and Lazyman
+# build-jupyter-minimal - build the doctorwhen/kasm:jupyter-minimal Docker image
 #
 # Requires a Github API token set in the environment as GH_TOKEN
 # Must be run on the Kasm Workspaces server
 
-if [ "$1" == "kasmweb" ]
-then
-  IMG_NAME="kasmweb/jupyter-minimal:dev"
-else
-  IMG_NAME="doctorwhen/kasm:jupyter-minimal"
-fi
+IMG_NAME="doctorwhen/kasm:jupyter-minimal"
 
 sudo docker image rm ${IMG_NAME} 2>/dev/null
 rm -rf workspaces-images
@@ -30,4 +24,4 @@ git clone https://github.com/doctorfree/workspaces-images.git
 }
 
 cd workspaces-images
-bin/build-jupyter-minimal "$1"
+bin/build-jupyter-minimal

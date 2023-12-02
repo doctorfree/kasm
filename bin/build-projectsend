@@ -1,17 +1,12 @@
 #!/bin/bash
 #
-# build-projectsend - build the kasmweb/projectsend:dev Docker image to be used in
-#                       the Kasm Neovim Workspace which installs Neovim and Lazyman
+# build-projectsend - build the doctorwhen/kasm:projectsend Docker image to be used in
+#                     the Kasm ProjectSend Workspace
 #
 # Requires a Github API token set in the environment as GH_TOKEN
 # Must be run on the Kasm Workspaces server
 
-if [ "$1" == "kasmweb" ]
-then
-  IMG_NAME="kasmweb/projectsend:dev"
-else
-  IMG_NAME="doctorwhen/kasm:projectsend"
-fi
+IMG_NAME="doctorwhen/kasm:projectsend"
 
 sudo docker image rm ${IMG_NAME} 2>/dev/null
 rm -rf workspaces-images
@@ -30,4 +25,4 @@ git clone https://github.com/doctorfree/workspaces-images.git
 }
 
 cd workspaces-images
-bin/build-projectsend "$1"
+bin/build-projectsend

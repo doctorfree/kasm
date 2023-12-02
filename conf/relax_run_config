@@ -1,0 +1,12 @@
+# If you see an image build error like the following:
+#
+#   Failed to move to new namespace: PID namespaces supported,
+#   Network namespace supported, but failed: errno = Operation not permitted
+#
+# Add the following to the Docker Run Config Override section of the Workspace entry:
+
+{
+  "security_opt": [
+    "seccomp=unconfined"
+  ]
+}
