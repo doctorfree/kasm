@@ -43,4 +43,8 @@ ${SCRIPT_PATH}/../workspaces-images/bin/push-appimage
 ${SCRIPT_PATH}/build-lmstudio
 ${SCRIPT_PATH}/../workspaces-images/bin/push-lmstudio
 
+# LM Studio
+${SCRIPT_PATH}/build-rclone
+${SCRIPT_PATH}/../workspaces-images/bin/push-rclone
+
 sudo docker image list
