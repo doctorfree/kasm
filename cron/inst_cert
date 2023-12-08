@@ -1,7 +1,9 @@
 #!/bin/bash
 #
-LIVE="/etc/letsencrypt/live/neoman.dev"
-DOMAIN="neoman.dev"
+# Set this to the domain for which Letsencrypt is renewing
+DOMAIN="<YOUR.DOMAIN>"
+
+LIVE="/etc/letsencrypt/live"
 DEST="/opt/kasm/current/certs"
 
 # Check for Letsencrypt files

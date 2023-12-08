@@ -30,6 +30,8 @@ sudo crontab crontab.in
 
 ## Cron
 
+`crontab.in`:
+
 ```
 15 0 * *   1 /root/clean_dangling_docker > /dev/null 2>&1
 0  0 1 *   * /root/clean_docker_logs > /dev/null 2>&1
@@ -37,6 +39,8 @@ sudo crontab crontab.in
 ```
 
 ## Dangling volumes and images
+
+`clean_dangling_docker`:
 
 ```bash
 iamroot=
@@ -64,6 +68,8 @@ dangvol=$(docker volume ls -qf dangling=true)
 
 ## Docker logs
 
+`clean_docker_logs`:
+
 ```bash
 iamroot=
 if [ "${EUID}" ]; then
@@ -90,9 +96,13 @@ done
 
 ## Letsencrypt certs
 
+`inst_cert`:
+
 ```bash
-LIVE="/etc/letsencrypt/live/neoman.dev"
-DOMAIN="YOUR.DOMAIN"
+# Set this to the domain for which Letsencrypt is renewing
+DOMAIN="<YOUR.DOMAIN>"
+
+LIVE="/etc/letsencrypt/live"
 DEST="/opt/kasm/current/certs"
 
 # Check for Letsencrypt files
