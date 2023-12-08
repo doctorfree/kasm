@@ -10,6 +10,7 @@ containerized workloads to your browser and desktops to end-users.
   - [Download and extract](#download-and-extract)
   - [To run Kasm on port 8443 with a reverse proxy on 443](#to-run-kasm-on-port-8443-with-a-reverse-proxy-on-443)
 - [Custom Docker Images](#custom-docker-images)
+- [Cron periodic cleanup and certificate renewal](cron/README.md)
 - [References](#references)
 
 ## Installation
