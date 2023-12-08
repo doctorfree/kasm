@@ -1,0 +1,25 @@
+#!/bin/bash
+#
+# clean_docker_logs - zero out all container logs larger than 250MB
+
+iamroot=
+if [ "${EUID}" ]; then
+  [ ${EUID} -eq 0 ] && iamroot=1
+else
+  uid=$(id -u)
+  [ ${uid} -eq 0 ] && iamroot=1
+fi
+
+[ "${iamroot}" ] || {
+  echo "Must be run as root. Exiting."
+  exit 1
+}
+
+docker container list | awk ' { print $NF } ' | grep -v NAMES | \
+while read container_name
+do
+  path=$(docker container inspect ${container_name} --format "{{ .LogPath }}")
+  size=$(/bin/ls -s ${path} | awk '{ print $1 }')
+  [ "${size}" ] || continue
+  [ ${size} -gt 250000 ] && echo "" > ${path}
+done

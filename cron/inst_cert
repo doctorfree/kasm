@@ -1,0 +1,18 @@
+#!/bin/bash
+#
+LIVE="/etc/letsencrypt/live/neoman.dev"
+DOMAIN="neoman.dev"
+DEST="/opt/kasm/current/certs"
+
+# Check for Letsencrypt files
+[ -f ${LIVE}/${DOMAIN}/fullchain.pem ] || exit 1
+[ -f ${LIVE}/${DOMAIN}/privkey.pem ] || exit 1
+
+# Stop Kasm
+/opt/kasm/bin/stop
+
+cp ${LIVE}/${DOMAIN}/fullchain.pem ${DEST}/kasm_nginx.crt
+cp ${LIVE}/${DOMAIN}/privkey.pem ${DEST}/kasm_nginx.key
+
+# Start Kasm
+/opt/kasm/bin/start

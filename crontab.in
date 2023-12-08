@@ -1,1 +1,0 @@
-15 0 * * 1 /home/hbadmin/bin/clean_dangling_docker > /dev/null 2>&1
