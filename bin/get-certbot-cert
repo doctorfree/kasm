@@ -1,8 +1,10 @@
 #!/bin/bash
 #
-# get-certbot-cert - tailor to host and credentials location
+# get-certbot-cert - tailor to host, email, and credentials location
 
+# Customize these
 SERVER_NAME="kasm.neoman.dev"
+EMAIL="ronaldrecord@gmail.com"
 CF_CRED_LOC="${HOME}/.secrets/certbot/cloudflare.ini"
 
 # If cloudflare.ini exists then use that. If not check environment.
@@ -22,7 +24,9 @@ CF_CRED_LOC="${HOME}/.secrets/certbot/cloudflare.ini"
 }
 chmod 600 ${CF_CRED_LOC}
 
-certbot certonly \
+sudo certbot certonly \
+  --agree-tos \
+  --email ${EMAIL} \
   --dns-cloudflare \
   --dns-cloudflare-credentials ${CF_CRED_LOC} \
   -d ${SERVER_NAME}
