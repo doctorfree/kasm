@@ -1,0 +1,28 @@
+#!/bin/bash
+#
+# get-certbot-cert - tailor to host and credentials location
+
+SERVER_NAME="kasm.neoman.dev"
+CF_CRED_LOC="${HOME}/.secrets/certbot/cloudflare.ini"
+
+# If cloudflare.ini exists then use that. If not check environment.
+[ -f ${CF_CRED_LOC} ] || {
+  [ -d ${HOME}/.secrets ] || mkdir -p ${HOME}/.secrets
+  [ -d ${HOME}/.secrets/certbot ] || mkdir -p ${HOME}/.secrets/certbot
+  if [ "${CLOUDFLARE_API_TOKEN}" ]; then
+    echo "dns_cloudflare_api_token = ${CLOUDFLARE_API_TOKEN}" > ${CF_CRED_LOC}
+  else
+    if [ "${CF_API_TOKEN}" ]; then
+      echo "dns_cloudflare_api_token = ${CF_API_TOKEN}" > ${CF_CRED_LOC}
+    else
+      echo "Cannot locate Cloudflare credentials. Exiting."
+      exit 1
+    fi
+  fi
+}
+chmod 600 ${CF_CRED_LOC}
+
+certbot certonly \
+  --dns-cloudflare \
+  --dns-cloudflare-credentials ${CF_CRED_LOC} \
+  -d ${SERVER_NAME}

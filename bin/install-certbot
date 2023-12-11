@@ -1,0 +1,6 @@
+#!/bin/bash
+#
+# install-certbot - Ubuntu installation with Cloudflare DNS plugin
+#                   tailor to host and credentials
+
+sudo apt install certbot python3-certbot-dns-cloudflare -q -y
