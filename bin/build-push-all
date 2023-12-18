@@ -21,9 +21,11 @@ ${SCRIPT_PATH}/../workspaces-images/bin/push-jupyter
 ${SCRIPT_PATH}/build-neovim
 ${SCRIPT_PATH}/../workspaces-images/bin/push-neovim
 
-# SpiderFoot
+# SpiderFoot/OSINT
 ${SCRIPT_PATH}/build-spiderfoot
 ${SCRIPT_PATH}/../workspaces-images/bin/push-spiderfoot
+${SCRIPT_PATH}/build-osint
+${SCRIPT_PATH}/../workspaces-images/bin/push-osint
 
 # Winglang
 ${SCRIPT_PATH}/build-wing
