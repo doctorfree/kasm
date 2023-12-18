@@ -23,3 +23,6 @@ do
   [ "${size}" ] || continue
   [ ${size} -gt 250000 ] && echo "" > ${path}
 done
+
+# Kasm logs
+rm -f /opt/kasm/current/log/*.log.??
