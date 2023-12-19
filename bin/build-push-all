@@ -12,6 +12,8 @@ ${SCRIPT_PATH}/../workspaces-images/bin/push-focal
 # Asciiville
 ${SCRIPT_PATH}/build-asciiville
 ${SCRIPT_PATH}/../workspaces-images/bin/push-asciiville
+${SCRIPT_PATH}/build-asciigames
+${SCRIPT_PATH}/../workspaces-images/bin/push-asciigames
 
 # Jupyter
 ${SCRIPT_PATH}/build-jupyter
