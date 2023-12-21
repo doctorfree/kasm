@@ -1,0 +1,16 @@
+#!/bin/bash
+#
+# list_images - list the Tag ans Size of all docker images in a given repository
+#               the default repository is doctorwhen/kasm
+# Usage: list_images [-r repository]
+#
+# Hint - to find out what data can be printed, show all content as json:
+#        docker container ls --format='{{json .}}'
+#
+
+REPO="doctorwhen/kasm"
+[ "$1" == "-r" ] && {
+  REPO="$2"
+}
+
+sudo docker images --format "table {{.Tag}}\t{{.Size}}" ${REPO}
