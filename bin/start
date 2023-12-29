@@ -1,4 +1,10 @@
 #!/bin/bash
 
+# Start the reverse proxy if configured
 # sudo systemctl start nginx
+#
+# Start the Cloudflare tunnel if configured
+[ -x ${HOME}/bin/cf_tunnel ] && ${HOME}/bin/cf_tunnel
+#
+# Start Kasm
 sudo /opt/kasm/bin/start
