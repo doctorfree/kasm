@@ -1,0 +1,40 @@
+#!/bin/bash
+
+SCRIPT_PATH="$( cd "$(dirname "$0")" ; pwd -P )"
+SCRIPT_PATH="$(realpath $SCRIPT_PATH)"
+
+# Ubuntu desktops
+${SCRIPT_PATH}/build-jammy
+${SCRIPT_PATH}/build-focal
+
+# Asciiville
+${SCRIPT_PATH}/build-asciiville
+${SCRIPT_PATH}/build-asciigames
+
+# Jupyter
+${SCRIPT_PATH}/build-jupyter
+
+# Neovim
+${SCRIPT_PATH}/build-neovim
+
+# SpiderFoot/OSINT
+${SCRIPT_PATH}/build-spiderfoot
+${SCRIPT_PATH}/build-osint
+
+# Winglang
+${SCRIPT_PATH}/build-wing
+${SCRIPT_PATH}/build-wing-neovim
+
+# Deluxe desktop
+${SCRIPT_PATH}/build-deluxe
+
+# AppImage Launcher
+${SCRIPT_PATH}/build-appimage
+
+# LM Studio
+${SCRIPT_PATH}/build-lmstudio
+
+# LM Studio
+${SCRIPT_PATH}/build-rclone
+
+sudo docker image list
