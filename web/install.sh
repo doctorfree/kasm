@@ -8,11 +8,11 @@ export DEBIAN_FRONTEND=noninteractive
 sudo apt install nginx -q -y
 
 [ -d /etc/nginx/sites-available ] || sudo mkdir -p /etc/nginx/sites-available
-[ -f kasm01.hornblower.com ] && {
-  sudo cp kasm01.hornblower.com /etc/nginx/sites-available
-  sudo rm -f /etc/nginx/sites-enabled/kasm01.hornblower.com
-  sudo ln -s /etc/nginx/sites-available/kasm01.hornblower.com \
-             /etc/nginx/sites-enabled/kasm01.hornblower.com
+[ -f kasm01.example.com ] && {
+  sudo cp kasm01.example.com /etc/nginx/sites-available
+  sudo rm -f /etc/nginx/sites-enabled/kasm01.example.com
+  sudo ln -s /etc/nginx/sites-available/kasm01.example.com \
+             /etc/nginx/sites-enabled/kasm01.example.com
   sudo rm -f /etc/nginx/sites-enabled/default
 }
 [ -d /etc/nginx/ssl ] || sudo mkdir -p /etc/nginx/ssl
@@ -48,8 +48,8 @@ sudo chmod g+s /var/lib/letsencrypt
 sudo systemctl --quiet restart nginx
 # We are using a wildcard certificate for now
 # Let's Encrypt tries to perform a challenge but fails due to our firewall
-sudo certbot certonly --agree-tos --email ron.record@hornblower.com \
-             --webroot -w /var/lib/letsencrypt/ -d kasm01.hornblower.com
+sudo certbot certonly --agree-tos --email ron.record@example.com \
+             --webroot -w /var/lib/letsencrypt/ -d kasm01.example.com
 sudo systemctl --quiet reload nginx
 
 echo "# Restart nginx when certificate is renewed" > /tmp/cli$$

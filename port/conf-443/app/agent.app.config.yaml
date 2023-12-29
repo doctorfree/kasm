@@ -73,10 +73,10 @@ manager:
   client_cert: /srv/provision_agent/client_cert.pem
   heartbeat_path: /manager_api/api/v1/heartbeat
   hostnames:
-  - kasm01.hornblower.com
+  - kasm01.example.com
   - proxy
   images_path: /manager_api/api/v1/images
   public_port: 443
   scheme: https
   server_cert: /srv/provision_agent/server_cert.pem
-  token: qbW0ZwBuANAiemP2ZYpX
+  token: <token>

@@ -6,4 +6,4 @@ sudo docker exec tailscaled \
   tailscale up \
   --accept-routes \
   --accept-dns \
-  --login-server https://hsc01.hornblower.com
+  --login-server https://kasm01.example.com

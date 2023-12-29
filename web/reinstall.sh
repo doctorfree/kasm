@@ -13,11 +13,11 @@ sudo apt autoremove -q -y
 sudo apt install nginx -q -y
 
 [ -d /etc/nginx/sites-available ] || sudo mkdir -p /etc/nginx/sites-available
-[ -f kasm01.hornblower.com ] && {
-    sudo cp kasm01.hornblower.com /etc/nginx/sites-available
-    sudo rm -f /etc/nginx/sites-enabled/kasm01.hornblower.com
-    sudo ln -s /etc/nginx/sites-available/kasm01.hornblower.com \
-               /etc/nginx/sites-enabled/kasm01.hornblower.com
+[ -f kasm01.example.com ] && {
+    sudo cp kasm01.example.com /etc/nginx/sites-available
+    sudo rm -f /etc/nginx/sites-enabled/kasm01.example.com
+    sudo ln -s /etc/nginx/sites-available/kasm01.example.com \
+               /etc/nginx/sites-enabled/kasm01.example.com
     sudo rm -f /etc/nginx/sites-enabled/default
 }
 [ -d /etc/nginx/ssl ] || sudo mkdir -p /etc/nginx/ssl

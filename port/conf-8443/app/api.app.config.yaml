@@ -296,7 +296,7 @@ manager:
   update_timer: 86400
 server:
   server_id: fc960de7-1b0d-4005-903a-c54900a9b68b
-  server_hostname: kasm01.hornblower.com
+  server_hostname: kasm01.example.com
   zone_name: default
   sanitize_errors: true
 share:

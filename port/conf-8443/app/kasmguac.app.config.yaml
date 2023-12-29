@@ -14,8 +14,8 @@ kasmguac:
     dateFormat: YYYY.MM.DD
     timestampFormat: YYYY-MM-DD HH:mm:ss.SSS
 api:
-  hostnames: ['proxy','kasm01.hornblower.com']
+  hostnames: ['proxy','kasm01.example.com']
   port: 443
-  auth_token: Dw6qGkL5yJAOyNMYrM9Y6k
+  auth_token: <token>
   allow_self_signed_cert: true
   hostname_refresh_interval: 30
