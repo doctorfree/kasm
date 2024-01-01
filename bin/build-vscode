@@ -1,0 +1,13 @@
+#!/bin/bash
+#
+# build-vscode - build the doctorwhen/kasm:vscode Docker image to be used in
+#                    the Kasm vscode Workspace
+
+IMG_NAME="doctorwhen/kasm:vscode"
+
+sudo docker image rm ${IMG_NAME} 2>/dev/null
+rm -rf workspaces-images
+git clone https://github.com/doctorfree/workspaces-images.git
+
+cd workspaces-images
+bin/build-vscode

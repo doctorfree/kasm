@@ -51,4 +51,12 @@ ${SCRIPT_PATH}/../workspaces-images/bin/push-lmstudio
 ${SCRIPT_PATH}/build-rclone
 ${SCRIPT_PATH}/../workspaces-images/bin/push-rclone
 
+# Kitty terminal
+${SCRIPT_PATH}/build-kitty
+${SCRIPT_PATH}/../workspaces-images/bin/push-kitty
+
+# VS-Code
+${SCRIPT_PATH}/build-vscode
+${SCRIPT_PATH}/../workspaces-images/bin/push-vscode
+
 sudo docker image list
