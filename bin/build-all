@@ -37,4 +37,10 @@ ${SCRIPT_PATH}/build-lmstudio
 # LM Studio
 ${SCRIPT_PATH}/build-rclone
 
+# Kitty terminal
+${SCRIPT_PATH}/build-kitty
+
+# VS-Code
+${SCRIPT_PATH}/build-vscode
+
 sudo docker image list
