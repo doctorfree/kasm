@@ -13,4 +13,4 @@ REPO="doctorwhen/kasm"
   REPO="$2"
 }
 
-sudo docker images --format "table {{.Tag}}\t{{.Size}}" ${REPO} | grep -v SIZE | sort
+sudo docker images --format "table {{.Tag}}\t{{.Size}}\t{{.CreatedSince}}" ${REPO} | grep -v SIZE | sort
