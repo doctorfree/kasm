@@ -3,44 +3,59 @@
 SCRIPT_PATH="$( cd "$(dirname "$0")" ; pwd -P )"
 SCRIPT_PATH="$(realpath $SCRIPT_PATH)"
 
+branch="main"
+[ "$1" ] && {
+  case "$1" in
+    dev|develop)
+      branch="develop"
+      ;;
+    prod|production)
+      branch="main"
+      ;;
+    *)
+      branch="$1"
+      ;;
+  esac
+}
+
 # Ubuntu desktops
-${SCRIPT_PATH}/build-jammy
-${SCRIPT_PATH}/build-focal
+${SCRIPT_PATH}/build-jammy "${branch}"
+${SCRIPT_PATH}/build-focal "${branch}"
 
 # Asciiville
-${SCRIPT_PATH}/build-asciiville
-${SCRIPT_PATH}/build-asciigames
+${SCRIPT_PATH}/build-asciiville "${branch}"
+${SCRIPT_PATH}/build-asciigames "${branch}"
 
 # Jupyter
-${SCRIPT_PATH}/build-jupyter
+${SCRIPT_PATH}/build-jupyter "${branch}"
 
 # Neovim
-${SCRIPT_PATH}/build-neovim
+${SCRIPT_PATH}/build-neovim "${branch}"
 
 # SpiderFoot/OSINT
-#${SCRIPT_PATH}/build-spiderfoot
-${SCRIPT_PATH}/build-osint
+#${SCRIPT_PATH}/build-spiderfoot "${branch}"
+${SCRIPT_PATH}/build-osint "${branch}"
 
 # Winglang
-${SCRIPT_PATH}/build-wing
-${SCRIPT_PATH}/build-wing-neovim
+${SCRIPT_PATH}/build-wing "${branch}"
+${SCRIPT_PATH}/build-wing-neovim "${branch}"
 
 # Deluxe desktop
-${SCRIPT_PATH}/build-deluxe
+${SCRIPT_PATH}/build-deluxe "${branch}"
 
 # AppImage Launcher
-${SCRIPT_PATH}/build-appimage
+${SCRIPT_PATH}/build-appimage "${branch}"
 
 # LM Studio
-${SCRIPT_PATH}/build-lmstudio
+${SCRIPT_PATH}/build-lmstudio "${branch}"
 
 # LM Studio
-${SCRIPT_PATH}/build-rclone
+${SCRIPT_PATH}/build-rclone "${branch}"
 
 # Kitty terminal
-${SCRIPT_PATH}/build-kitty
+${SCRIPT_PATH}/build-kitty "${branch}"
 
 # VS-Code
-${SCRIPT_PATH}/build-vscode
+${SCRIPT_PATH}/build-vscode "${branch}"
 
 sudo docker image list

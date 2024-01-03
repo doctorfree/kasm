@@ -23,6 +23,22 @@ usage() {
 
 tag="$1"
 IMG_NAME="doctorwhen/kasm:${tag}"
+shift
+
+branch="main"
+[ "$1" ] && {
+  case "$1" in
+    dev|develop)
+      branch="develop"
+      ;;
+    prod|production)
+      branch="main"
+      ;;
+    *)
+      branch="$1"
+      ;;
+  esac
+}
 
 rm -rf workspaces-images
 git clone https://github.com/doctorfree/workspaces-images.git
@@ -33,6 +49,7 @@ cd workspaces-images
   printf "\nExiting"
   usage
 }
+git checkout ${branch}
 
 [ "${GH_API_TOKEN}" ] && export GH_TOKEN="${GH_API_TOKEN}"
 [ "${GH_TOKEN}" ] || {

@@ -8,6 +8,21 @@
 
 IMG_NAME="doctorwhen/kasm:asciiville"
 
+branch="main"
+[ "$1" ] && {
+  case "$1" in
+    dev|develop)
+      branch="develop"
+      ;;
+    prod|production)
+      branch="main"
+      ;;
+    *)
+      branch="$1"
+      ;;
+  esac
+}
+
 sudo docker image rm ${IMG_NAME} 2>/dev/null
 rm -rf workspaces-images
 git clone https://github.com/doctorfree/workspaces-images.git
@@ -25,4 +40,5 @@ git clone https://github.com/doctorfree/workspaces-images.git
 }
 
 cd workspaces-images
+git checkout ${branch}
 bin/build-asciiville

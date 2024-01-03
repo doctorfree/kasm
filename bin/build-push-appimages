@@ -3,9 +3,24 @@
 SCRIPT_PATH="$( cd "$(dirname "$0")" ; pwd -P )"
 SCRIPT_PATH="$(realpath $SCRIPT_PATH)"
 
-${SCRIPT_PATH}/build-appimage
+branch="main"
+[ "$1" ] && {
+  case "$1" in
+    dev|develop)
+      branch="develop"
+      ;;
+    prod|production)
+      branch="main"
+      ;;
+    *)
+      branch="$1"
+      ;;
+  esac
+}
+
+${SCRIPT_PATH}/build-appimage ${branch}
 ${SCRIPT_PATH}/../workspaces-images/bin/push-appimage
-${SCRIPT_PATH}/build-lmstudio
+${SCRIPT_PATH}/build-lmstudio ${branch}
 ${SCRIPT_PATH}/../workspaces-images/bin/push-lmstudio
 
 sudo docker image list

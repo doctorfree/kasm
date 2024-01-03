@@ -2,17 +2,32 @@
 
 SCRIPT_PATH="$( cd "$(dirname "$0")" ; pwd -P )"
 
-${SCRIPT_PATH}/build-jupyter-foundation
+branch="main"
+[ "$1" ] && {
+  case "$1" in
+    dev|develop)
+      branch="develop"
+      ;;
+    prod|production)
+      branch="main"
+      ;;
+    *)
+      branch="$1"
+      ;;
+  esac
+}
+
+${SCRIPT_PATH}/build-jupyter-foundation ${branch}
 sudo docker push doctorwhen/kasm:jupyter-foundation
 
-${SCRIPT_PATH}/build-jupyter-base
+${SCRIPT_PATH}/build-jupyter-base ${branch}
 sudo docker push doctorwhen/kasm:jupyter-base
 
-${SCRIPT_PATH}/build-jupyter-minimal
+${SCRIPT_PATH}/build-jupyter-minimal ${branch}
 sudo docker push doctorwhen/kasm:jupyter-minimal
 
-${SCRIPT_PATH}/build-jupyter-scipy
+${SCRIPT_PATH}/build-jupyter-scipy ${branch}
 sudo docker push doctorwhen/kasm:jupyter-scipy
 
-${SCRIPT_PATH}/build-jupyter-datascience
+${SCRIPT_PATH}/build-jupyter-datascience ${branch}
 sudo docker push doctorwhen/kasm:jupyter-datascience

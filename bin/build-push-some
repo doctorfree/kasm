@@ -3,13 +3,28 @@
 SCRIPT_PATH="$( cd "$(dirname "$0")" ; pwd -P )"
 SCRIPT_PATH="$(realpath $SCRIPT_PATH)"
 
-${SCRIPT_PATH}/build-asciiville
+branch="main"
+[ "$1" ] && {
+  case "$1" in
+    dev|develop)
+      branch="develop"
+      ;;
+    prod|production)
+      branch="main"
+      ;;
+    *)
+      branch="$1"
+      ;;
+  esac
+}
+
+${SCRIPT_PATH}/build-asciiville ${branch}
 ${SCRIPT_PATH}/../workspaces-images/bin/push-asciiville
 
-${SCRIPT_PATH}/build-neovim
+${SCRIPT_PATH}/build-neovim ${branch}
 ${SCRIPT_PATH}/../workspaces-images/bin/push-neovim
 
-${SCRIPT_PATH}/build-deluxe
+${SCRIPT_PATH}/build-deluxe ${branch}
 ${SCRIPT_PATH}/../workspaces-images/bin/push-deluxe
 
 sudo docker image list

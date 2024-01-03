@@ -9,6 +9,21 @@
 IMG_NAME="doctorwhen/kasm:osint"
 REPO="workspaces-images"
 
+branch="main"
+[ "$1" ] && {
+  case "$1" in
+    dev|develop)
+      branch="develop"
+      ;;
+    prod|production)
+      branch="main"
+      ;;
+    *)
+      branch="$1"
+      ;;
+  esac
+}
+
 sudo docker image rm ${IMG_NAME} 2>/dev/null
 rm -rf ${REPO}
 git clone https://github.com/doctorfree/${REPO}
@@ -26,4 +41,5 @@ git clone https://github.com/doctorfree/${REPO}
 }
 
 cd ${REPO}
+git checkout ${branch}
 bin/build-osint
