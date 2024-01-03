@@ -18,7 +18,7 @@ ${SCRIPT_PATH}/build-jupyter
 ${SCRIPT_PATH}/build-neovim
 
 # SpiderFoot/OSINT
-${SCRIPT_PATH}/build-spiderfoot
+#${SCRIPT_PATH}/build-spiderfoot
 ${SCRIPT_PATH}/build-osint
 
 # Winglang
