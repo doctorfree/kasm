@@ -14,7 +14,7 @@ clean dangling volumes/images and bloated docker log files.
 
 ## Setup
 
-The `cron` jobs should be run as rooot. To setup these `cron` jobs,
+The `cron` jobs should be run as root. To setup these `cron` jobs,
 copy the scripts to `/root/` on the Kasm server and add `crontab`
 entries for the root user:
 
