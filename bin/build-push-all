@@ -3,6 +3,94 @@
 SCRIPT_PATH="$( cd "$(dirname "$0")" ; pwd -P )"
 SCRIPT_PATH="$(realpath $SCRIPT_PATH)"
 
+enable_all() {
+  asciiville=1
+  asciigames=1
+  appimage=1
+  deluxe=1
+  focal=1
+  jammy=1
+  jupyter=1
+  kitty=1
+  lmstudio=1
+  neovim=1
+  osint=1
+  rclone=1
+  vscode=1
+  wing=1
+}
+
+asciiville=
+asciigames=
+appimage=
+deluxe=
+focal=
+jammy=
+jupyter=
+kitty=
+lmstudio=
+neovim=
+osint=
+rclone=
+vscode=
+wing=
+all=1
+while getopts ":Aagidfjnklorvwu" flag; do
+  case $flag in
+    A)
+      enable_all
+      ;;
+    a) asciiville=1
+      all=
+      ;;
+    g) asciigames=1
+      all=
+      ;;
+    i) appimage=1
+      all=
+      ;;
+    d) deluxe=1
+      all=
+      ;;
+    f) focal=1
+      all=
+      ;;
+    j) jammy=1
+      all=
+      ;;
+    n) neovim=1
+      all=
+      ;;
+    k) kitty=1
+      all=
+      ;;
+    l) lmstudio=1
+      all=
+      ;;
+    o) osint=1
+      all=
+      ;;
+    r) rclone=1
+      all=
+      ;;
+    u) jupyter=1
+      all=
+      ;;
+    v) vscode=1
+      all=
+      ;;
+    w) wing=1
+      all=
+      ;;
+    \?)
+      echo "Invalid option: $flag"
+      usage
+      ;;
+  esac
+done
+shift $(( OPTIND - 1 ))
+
+[ "${all}" ] && enable_all
 branch="main"
 [ "$1" ] && {
   case "$1" in
@@ -19,59 +107,84 @@ branch="main"
 }
 
 # Ubuntu desktops
-${SCRIPT_PATH}/build-jammy "${branch}"
-${SCRIPT_PATH}/../workspaces-images/bin/push-jammy
-${SCRIPT_PATH}/build-focal "${branch}"
-${SCRIPT_PATH}/../workspaces-images/bin/push-focal
+[ "${jammy}" ] && {
+  ${SCRIPT_PATH}/build-jammy "${branch}"
+  ${SCRIPT_PATH}/../workspaces-images/bin/push-jammy
+}
+[ "${focal}" ] && {
+  ${SCRIPT_PATH}/build-focal "${branch}"
+  ${SCRIPT_PATH}/../workspaces-images/bin/push-focal
+}
 
 # Asciiville
-${SCRIPT_PATH}/build-asciiville "${branch}"
-${SCRIPT_PATH}/../workspaces-images/bin/push-asciiville
-${SCRIPT_PATH}/build-asciigames "${branch}"
-${SCRIPT_PATH}/../workspaces-images/bin/push-asciigames
+[ "${asciiville}" ] && {
+  ${SCRIPT_PATH}/build-asciiville "${branch}"
+  ${SCRIPT_PATH}/../workspaces-images/bin/push-asciiville
+}
+[ "${asciigames}" ] && {
+  ${SCRIPT_PATH}/build-asciigames "${branch}"
+  ${SCRIPT_PATH}/../workspaces-images/bin/push-asciigames
+}
 
 # Jupyter
-${SCRIPT_PATH}/build-jupyter "${branch}"
-${SCRIPT_PATH}/../workspaces-images/bin/push-jupyter
+[ "${jupyter}" ] && {
+  ${SCRIPT_PATH}/build-jupyter "${branch}"
+  ${SCRIPT_PATH}/../workspaces-images/bin/push-jupyter
+}
 
 # Neovim
-${SCRIPT_PATH}/build-neovim "${branch}"
-${SCRIPT_PATH}/../workspaces-images/bin/push-neovim
+[ "${neovim}" ] && {
+  ${SCRIPT_PATH}/build-neovim "${branch}"
+  ${SCRIPT_PATH}/../workspaces-images/bin/push-neovim
+}
 
-# SpiderFoot/OSINT
-#${SCRIPT_PATH}/build-spiderfoot "${branch}"
-#${SCRIPT_PATH}/../workspaces-images/bin/push-spiderfoot
-${SCRIPT_PATH}/build-osint "${branch}"
-${SCRIPT_PATH}/../workspaces-images/bin/push-osint
+[ "${osint}" ] && {
+  ${SCRIPT_PATH}/build-osint "${branch}"
+  ${SCRIPT_PATH}/../workspaces-images/bin/push-osint
+}
 
 # Winglang
-${SCRIPT_PATH}/build-wing "${branch}"
-${SCRIPT_PATH}/../workspaces-images/bin/push-wing
-${SCRIPT_PATH}/build-wing-neovim "${branch}"
-${SCRIPT_PATH}/../workspaces-images/bin/push-wing-neovim
+[ "${wing}" ] && {
+  ${SCRIPT_PATH}/build-wing "${branch}"
+  ${SCRIPT_PATH}/../workspaces-images/bin/push-wing
+  ${SCRIPT_PATH}/build-wing-neovim "${branch}"
+  ${SCRIPT_PATH}/../workspaces-images/bin/push-wing-neovim
+}
 
 # Deluxe desktop
-${SCRIPT_PATH}/build-deluxe "${branch}"
-${SCRIPT_PATH}/../workspaces-images/bin/push-deluxe
+[ "${deluxe}" ] && {
+  ${SCRIPT_PATH}/build-deluxe "${branch}"
+  ${SCRIPT_PATH}/../workspaces-images/bin/push-deluxe
+}
 
 # AppImage Launcher
-${SCRIPT_PATH}/build-appimage "${branch}"
-${SCRIPT_PATH}/../workspaces-images/bin/push-appimage
+[ "${appimage}" ] && {
+  ${SCRIPT_PATH}/build-appimage "${branch}"
+  ${SCRIPT_PATH}/../workspaces-images/bin/push-appimage
+}
 
 # LM Studio
-${SCRIPT_PATH}/build-lmstudio "${branch}"
-${SCRIPT_PATH}/../workspaces-images/bin/push-lmstudio
+[ "${lmstudio}" ] && {
+  ${SCRIPT_PATH}/build-lmstudio "${branch}"
+  ${SCRIPT_PATH}/../workspaces-images/bin/push-lmstudio
+}
 
 # LM Studio
-${SCRIPT_PATH}/build-rclone "${branch}"
-${SCRIPT_PATH}/../workspaces-images/bin/push-rclone
+[ "${rclone}" ] && {
+  ${SCRIPT_PATH}/build-rclone "${branch}"
+  ${SCRIPT_PATH}/../workspaces-images/bin/push-rclone
+}
 
 # Kitty terminal
-${SCRIPT_PATH}/build-kitty "${branch}"
-${SCRIPT_PATH}/../workspaces-images/bin/push-kitty
+[ "${kitty}" ] && {
+  ${SCRIPT_PATH}/build-kitty "${branch}"
+  ${SCRIPT_PATH}/../workspaces-images/bin/push-kitty
+}
 
 # VS-Code
-${SCRIPT_PATH}/build-vscode "${branch}"
-${SCRIPT_PATH}/../workspaces-images/bin/push-vscode
+[ "${vscode}" ] && {
+  ${SCRIPT_PATH}/build-vscode "${branch}"
+  ${SCRIPT_PATH}/../workspaces-images/bin/push-vscode
+}
 
 sudo docker image list
