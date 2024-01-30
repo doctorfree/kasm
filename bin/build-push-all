@@ -141,6 +141,15 @@ branch="main"
   }
 }
 
+[ "${branch}" == "dryrun" ] && {
+  if [ -d ${SCRIPT_PATH}/../workspaces-images ]; then
+    git -C ${SCRIPT_PATH}/../workspaces-images pull
+  else
+    git clone https://github.com/doctorfree/workspaces-images \
+        ${SCRIPT_PATH}/../workspaces-images
+  fi
+}
+
 # Ubuntu desktops
 [ "${jammy}" ] && {
   ${SCRIPT_PATH}/build-jammy "${branch}"
