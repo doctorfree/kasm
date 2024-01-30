@@ -3,6 +3,30 @@
 SCRIPT_PATH="$( cd "$(dirname "$0")" ; pwd -P )"
 SCRIPT_PATH="$(realpath $SCRIPT_PATH)"
 
+usage() {
+  printf "\nUsage: build-push-all [-Aagidfjnklorvwu] [develop|help|usage|dryrun]"
+  printf "\nWhere:"
+  printf "\n\t-A indicates build and push all workspace images"
+  printf "\n\t-a indicates build and push the Asciiville workspace image"
+  printf "\n\t-g indicates build and push the Ascii Games workspace image"
+  printf "\n\t-i indicates build and push the Appimages workspace image"
+  printf "\n\t-d indicates build and push the Deluxe workspace image"
+  printf "\n\t-f indicates build and push the Ubuntu Focal workspace image"
+  printf "\n\t-j indicates build and push the Ubuntu Jammy workspace image"
+  printf "\n\t-n indicates build and push the Neovim workspace image"
+  printf "\n\t-k indicates build and push the Kitty workspace image"
+  printf "\n\t-l indicates build and push the LMstudio workspace image"
+  printf "\n\t-o indicates build and push the OS Intelligence workspace image"
+  printf "\n\t-r indicates build and push the Cloud Storage workspace image"
+  printf "\n\t-v indicates build and push the Visual Studio workspace image"
+  printf "\n\t-w indicates build and push the Wing workspace images"
+  printf "\n\t-u indicates build and push the Jupyter Notebooks workspace image"
+  printf "\n\t'develop|dev' indicates build and push using the 'develop' branch"
+  printf "\n\t'dryrun' displays the commands that would be run but does nothing"
+  printf "\n\t'help|usage' displays this usage message and exits\n"
+  exit 1
+}
+
 enable_all() {
   asciiville=1
   asciigames=1
@@ -100,91 +124,102 @@ branch="main"
     prod|production)
       branch="main"
       ;;
+    dry*)
+      branch="dryrun"
+      ;;
+    help|usage)
+      usage
+      ;;
     *)
       branch="$1"
       ;;
   esac
+  [ "$2" ] && {
+    printf "\nUnknown or too many arguments detected: $1 $2"
+    printf "\nOnly one of [develop|help|usage|dryrun] may be used"
+    usage
+  }
 }
 
 # Ubuntu desktops
 [ "${jammy}" ] && {
   ${SCRIPT_PATH}/build-jammy "${branch}"
-  ${SCRIPT_PATH}/../workspaces-images/bin/push-jammy
+  ${SCRIPT_PATH}/../workspaces-images/bin/push-jammy "${branch}"
 }
 [ "${focal}" ] && {
   ${SCRIPT_PATH}/build-focal "${branch}"
-  ${SCRIPT_PATH}/../workspaces-images/bin/push-focal
+  ${SCRIPT_PATH}/../workspaces-images/bin/push-focal "${branch}"
 }
 
 # Asciiville
 [ "${asciiville}" ] && {
   ${SCRIPT_PATH}/build-asciiville "${branch}"
-  ${SCRIPT_PATH}/../workspaces-images/bin/push-asciiville
+  ${SCRIPT_PATH}/../workspaces-images/bin/push-asciiville "${branch}"
 }
 [ "${asciigames}" ] && {
   ${SCRIPT_PATH}/build-asciigames "${branch}"
-  ${SCRIPT_PATH}/../workspaces-images/bin/push-asciigames
+  ${SCRIPT_PATH}/../workspaces-images/bin/push-asciigames "${branch}"
 }
 
 # Jupyter
 [ "${jupyter}" ] && {
   ${SCRIPT_PATH}/build-jupyter "${branch}"
-  ${SCRIPT_PATH}/../workspaces-images/bin/push-jupyter
+  ${SCRIPT_PATH}/../workspaces-images/bin/push-jupyter "${branch}"
 }
 
 # Neovim
 [ "${neovim}" ] && {
   ${SCRIPT_PATH}/build-neovim "${branch}"
-  ${SCRIPT_PATH}/../workspaces-images/bin/push-neovim
+  ${SCRIPT_PATH}/../workspaces-images/bin/push-neovim "${branch}"
 }
 
 [ "${osint}" ] && {
   ${SCRIPT_PATH}/build-osint "${branch}"
-  ${SCRIPT_PATH}/../workspaces-images/bin/push-osint
+  ${SCRIPT_PATH}/../workspaces-images/bin/push-osint "${branch}"
 }
 
 # Winglang
 [ "${wing}" ] && {
   ${SCRIPT_PATH}/build-wing "${branch}"
-  ${SCRIPT_PATH}/../workspaces-images/bin/push-wing
+  ${SCRIPT_PATH}/../workspaces-images/bin/push-wing "${branch}"
   ${SCRIPT_PATH}/build-wing-neovim "${branch}"
-  ${SCRIPT_PATH}/../workspaces-images/bin/push-wing-neovim
+  ${SCRIPT_PATH}/../workspaces-images/bin/push-wing-neovim "${branch}"
 }
 
 # Deluxe desktop
 [ "${deluxe}" ] && {
   ${SCRIPT_PATH}/build-deluxe "${branch}"
-  ${SCRIPT_PATH}/../workspaces-images/bin/push-deluxe
+  ${SCRIPT_PATH}/../workspaces-images/bin/push-deluxe "${branch}"
 }
 
 # AppImage Launcher
 [ "${appimage}" ] && {
   ${SCRIPT_PATH}/build-appimage "${branch}"
-  ${SCRIPT_PATH}/../workspaces-images/bin/push-appimage
+  ${SCRIPT_PATH}/../workspaces-images/bin/push-appimage "${branch}"
 }
 
 # LM Studio
 [ "${lmstudio}" ] && {
   ${SCRIPT_PATH}/build-lmstudio "${branch}"
-  ${SCRIPT_PATH}/../workspaces-images/bin/push-lmstudio
+  ${SCRIPT_PATH}/../workspaces-images/bin/push-lmstudio "${branch}"
 }
 
 # LM Studio
 [ "${rclone}" ] && {
   ${SCRIPT_PATH}/build-rclone "${branch}"
-  ${SCRIPT_PATH}/../workspaces-images/bin/push-rclone
+  ${SCRIPT_PATH}/../workspaces-images/bin/push-rclone "${branch}"
 }
 
 # Kitty terminal
 [ "${kitty}" ] && {
   ${SCRIPT_PATH}/build-kitty "${branch}"
-  ${SCRIPT_PATH}/../workspaces-images/bin/push-kitty
+  ${SCRIPT_PATH}/../workspaces-images/bin/push-kitty "${branch}"
 }
 
 # VS-Code
 [ "${vscode}" ] && {
   ${SCRIPT_PATH}/build-vscode "${branch}"
-  ${SCRIPT_PATH}/../workspaces-images/bin/push-vscode
+  ${SCRIPT_PATH}/../workspaces-images/bin/push-vscode "${branch}"
 }
 
-sudo docker image list
+[ "${branch}" == "dryrun" ] || sudo docker image list

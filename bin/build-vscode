@@ -14,16 +14,29 @@ branch="main"
     prod|production)
       branch="main"
       ;;
+    dry*)
+      branch="dryrun"
+      ;;
     *)
       branch="$1"
       ;;
   esac
 }
 
-sudo docker image rm ${IMG_NAME} 2>/dev/null
-rm -rf workspaces-images
-git clone https://github.com/doctorfree/workspaces-images.git
+if [ "${branch}" == "dryrun" ]; then
+  printf "\nsudo docker image rm ${IMG_NAME}"
+  printf "\nrm -rf workspaces-images"
+  printf "\ngit clone https://github.com/doctorfree/workspaces-images.git"
 
-cd workspaces-images
-git checkout ${branch}
-bin/build-vscode
+  printf "\ncd workspaces-images"
+  printf "\ngit checkout ${branch}"
+  printf "\nbin/build-vscode\n"
+else
+  sudo docker image rm ${IMG_NAME} 2>/dev/null
+  rm -rf workspaces-images
+  git clone https://github.com/doctorfree/workspaces-images.git
+
+  cd workspaces-images
+  git checkout ${branch}
+  bin/build-vscode
+fi

@@ -17,15 +17,14 @@ branch="main"
     prod|production)
       branch="main"
       ;;
+    dry*)
+      branch="dryrun"
+      ;;
     *)
       branch="$1"
       ;;
   esac
 }
-
-sudo docker image rm ${IMG_NAME} 2>/dev/null
-rm -rf workspaces-images
-git clone https://github.com/doctorfree/workspaces-images.git
 
 [ "${GH_API_TOKEN}" ] && export GH_TOKEN="${GH_API_TOKEN}"
 [ "${GH_TOKEN}" ] || {
@@ -39,6 +38,20 @@ git clone https://github.com/doctorfree/workspaces-images.git
   exit 1
 }
 
-cd workspaces-images
-git checkout ${branch}
-bin/build-neovim
+if [ "${branch}" == "dryrun" ]; then
+  printf "\nsudo docker image rm ${IMG_NAME}"
+  printf "\nrm -rf workspaces-images"
+  printf "\ngit clone https://github.com/doctorfree/workspaces-images.git"
+
+  printf "\ncd workspaces-images"
+  printf "\ngit checkout ${branch}"
+  printf "\nbin/build-neovim\n"
+else
+  sudo docker image rm ${IMG_NAME} 2>/dev/null
+  rm -rf workspaces-images
+  git clone https://github.com/doctorfree/workspaces-images.git
+
+  cd workspaces-images
+  git checkout ${branch}
+  bin/build-neovim
+fi

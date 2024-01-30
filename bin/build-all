@@ -12,6 +12,9 @@ branch="main"
     prod|production)
       branch="main"
       ;;
+    dry*)
+      branch="dryrun"
+      ;;
     *)
       branch="$1"
       ;;
