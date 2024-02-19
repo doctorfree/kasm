@@ -9,6 +9,7 @@ containerized workloads to your browser and desktops to end-users.
 - [Installation](#installation)
   - [Download and extract](#download-and-extract)
   - [To run Kasm on port 8443 with a reverse proxy on 443](#to-run-kasm-on-port-8443-with-a-reverse-proxy-on-443)
+  - [Upgrade](#upgrade)
 - [Custom Docker Images](#custom-docker-images)
 - [Cron periodic cleanup and certificate renewal](cron/README.md)
 - [References](#references)
@@ -35,6 +36,40 @@ sudo bash kasm_release/install.sh -L 8443 --accept-eula --swap-size 8192
 - Default usernames are `admin@kasm.local` and `user@kasm.local`
 - Passwords will be randomly generated and presented at the end of the install
   - Unless the `--admin-password` and/or `--user-password` are specified
+
+### Upgrade
+
+The automated upgrade script can be used to upgrade a previous installation to `1.15.0`.
+
+Administrators have several options to choose from when running the automated upgrade script:
+
+| **Flag**                      | **Description** |
+| ----------------------------- | --------------- |
+| -h|--help                     | Display this help menu |
+| -L|--proxy-port               | Default Proxy Listening Port |
+| -s|--offline-service          | Path to the tar.gz service images offline installer |
+| -S|--role                     | Role to Upgrade: `app|db|agent|remote_db|guac|proxy` |
+| -p|--public-hostname | Agent/Component `IP/Hostname` used to register with deployment. |
+| -g|--database-master-user     | Database master username required for remote DB |
+| -G|--database-master-password | Database master password required for remote DB |
+| -q|--db-hostname              | Database Hostname needed when upgrading agent and pulling images |
+| -T|--db-port                  | Database port needed when upgrading agent and pulling images (default 5432) |
+| -Q|--db-password              | Database Password needed when upgrading agent and pulling images |
+| -b|--no-check-disk            | Do not check disk space |
+| -n|--api-hostname             | Set API server hostname |
+| -A|--enable-lossless          | Enable lossless streaming option (1.12 and above) |
+| -O|--use-rolling-images       | Use rolling Service images |
+| -k|--registration-token       | Register a component with an existing deployment. |
+| --slim-images                 | Use slim alpine based service containers |
+
+In this example `--proxy-port` is used.
+
+```bash
+cd /tmp
+curl -O https://kasm-static-content.s3.amazonaws.com/kasm_release_1.15.0.06fdc8.tar.gz
+tar -xf kasm_release_1.15.0.06fdc8.tar.gz
+sudo bash kasm_release/upgrade.sh --proxy-port 443
+```
 
 ## Custom Docker Images
 
