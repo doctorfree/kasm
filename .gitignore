@@ -10,7 +10,7 @@ workspaces-images
 **.key
 
 # credentials
-creds
+creds*
 gitea_oauth
 
 # vim files
