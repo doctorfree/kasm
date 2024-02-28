@@ -13,14 +13,14 @@ services:
       POSTGRES_USER: kasmapp
       POSTGRES_DB: kasm
     volumes:
-      - /opt/kasm/1.14.0/conf/database/data.sql:/docker-entrypoint-initdb.d/data.sql
-      - /opt/kasm/1.14.0/conf/database/pg_hba.conf:/var/lib/postgresql/conf/pg_hba.conf
-      - /opt/kasm/1.14.0/conf/database/postgresql.conf:/var/lib/postgresql/conf/postgresql.conf
-      - /opt/kasm/1.14.0/conf/database/:/tmp/
-      - /opt/kasm/1.14.0/certs/db_server.crt:/etc/ssl/certs/db_server.crt
-      - /opt/kasm/1.14.0/certs/db_server.key:/etc/ssl/certs/db_server.key
-      - /opt/kasm/1.14.0/log/postgres/:/var/log/postgres/
-      - kasm_db_1.14.0:/var/lib/postgresql/data
+      - /opt/kasm/1.15.0/conf/database/data.sql:/docker-entrypoint-initdb.d/data.sql
+      - /opt/kasm/1.15.0/conf/database/pg_hba.conf:/var/lib/postgresql/conf/pg_hba.conf
+      - /opt/kasm/1.15.0/conf/database/postgresql.conf:/var/lib/postgresql/conf/postgresql.conf
+      - /opt/kasm/1.15.0/conf/database/:/tmp/
+      - /opt/kasm/1.15.0/certs/db_server.crt:/etc/ssl/certs/db_server.crt
+      - /opt/kasm/1.15.0/certs/db_server.key:/etc/ssl/certs/db_server.key
+      - /opt/kasm/1.15.0/log/postgres/:/var/log/postgres/
+      - kasm_db_1.15.0:/var/lib/postgresql/data
     healthcheck:
       test: "pg_isready --username=kasmapp && cat /proc/1/cmdline | grep -q '^postgres'"
       timeout: 5s
@@ -32,7 +32,7 @@ services:
         max-file: "20"
     command: postgres -c ssl=on -c ssl_cert_file=/etc/ssl/certs/db_server.crt -c ssl_key_file=/etc/ssl/certs/db_server.key -c config_file=/var/lib/postgresql/conf/postgresql.conf -c hba_file=/var/lib/postgresql/conf/pg_hba.conf
 volumes:
-  kasm_db_1.14.0:
+  kasm_db_1.15.0:
     external: true
 networks:
   kasm_default_network:

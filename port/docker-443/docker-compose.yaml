@@ -14,14 +14,14 @@ services:
       POSTGRES_USER: kasmapp
       POSTGRES_DB: kasm
     volumes:
-      - /opt/kasm/1.14.0/conf/database/data.sql:/docker-entrypoint-initdb.d/data.sql
-      - /opt/kasm/1.14.0/conf/database/pg_hba.conf:/var/lib/postgresql/conf/pg_hba.conf
-      - /opt/kasm/1.14.0/conf/database/postgresql.conf:/var/lib/postgresql/conf/postgresql.conf
-      - /opt/kasm/1.14.0/conf/database/:/tmp/
-      - /opt/kasm/1.14.0/certs/db_server.crt:/etc/ssl/certs/db_server.crt
-      - /opt/kasm/1.14.0/certs/db_server.key:/etc/ssl/certs/db_server.key
-      - /opt/kasm/1.14.0/log/postgres/:/var/log/postgres/
-      - kasm_db_1.14.0:/var/lib/postgresql/data
+      - /opt/kasm/1.15.0/conf/database/data.sql:/docker-entrypoint-initdb.d/data.sql
+      - /opt/kasm/1.15.0/conf/database/pg_hba.conf:/var/lib/postgresql/conf/pg_hba.conf
+      - /opt/kasm/1.15.0/conf/database/postgresql.conf:/var/lib/postgresql/conf/postgresql.conf
+      - /opt/kasm/1.15.0/conf/database/:/tmp/
+      - /opt/kasm/1.15.0/certs/db_server.crt:/etc/ssl/certs/db_server.crt
+      - /opt/kasm/1.15.0/certs/db_server.key:/etc/ssl/certs/db_server.key
+      - /opt/kasm/1.15.0/log/postgres/:/var/log/postgres/
+      - kasm_db_1.15.0:/var/lib/postgresql/data
     logging:
       driver: "json-file"
       options:
@@ -47,13 +47,13 @@ services:
   kasm_api:
     container_name: kasm_api
     user: "${KASM_UID?}:${KASM_GID?}"
-    image: "kasmweb/api:1.14.0"
+    image: "kasmweb/api:1.15.0"
     read_only: true
     networks:
       - kasm_default_network
     volumes:
-      - /opt/kasm/1.14.0:/opt/kasm/current
-      - /opt/kasm/1.14.0/tmp/api:/tmp
+      - /opt/kasm/1.15.0:/opt/kasm/current
+      - /opt/kasm/1.15.0/tmp/api:/tmp
     depends_on:
       - db
     restart: always
@@ -65,12 +65,12 @@ services:
   kasm_manager:
     container_name: kasm_manager
     user: "${KASM_UID?}:${KASM_GID?}"
-    image: "kasmweb/manager:1.14.0"
+    image: "kasmweb/manager:1.15.0"
     read_only: true
     networks:
       - kasm_default_network
     volumes:
-      - /opt/kasm/1.14.0:/opt/kasm/current
+      - /opt/kasm/1.15.0:/opt/kasm/current
     depends_on:
       - db
     restart: always
@@ -82,14 +82,14 @@ services:
   kasm_agent:
     container_name: kasm_agent
     user: root
-    image: "kasmweb/agent:1.14.0"
+    image: "kasmweb/agent:1.15.0"
     read_only: true
     networks:
       - kasm_default_network
     volumes:
-      - /opt/kasm/1.14.0:/opt/kasm/current
+      - /opt/kasm/1.15.0:/opt/kasm/current
       - /var/run/docker.sock:/var/run/docker.sock
-      - /opt/kasm/1.14.0/conf/nginx:/etc/nginx/conf.d
+      - /opt/kasm/1.15.0/conf/nginx:/etc/nginx/conf.d
     depends_on:
       - kasm_manager
     restart: always
@@ -101,12 +101,12 @@ services:
   kasm_share:
     container_name: kasm_share
     user: root
-    image: "kasmweb/share:1.14.0"
+    image: "kasmweb/share:1.15.0"
     read_only: true
     networks:
       - kasm_default_network
     volumes:
-      - /opt/kasm/1.14.0:/opt/kasm/current
+      - /opt/kasm/1.15.0:/opt/kasm/current
     restart: always
     depends_on:
       - db
@@ -119,13 +119,13 @@ services:
   kasm_guac:
     container_name: kasm_guac
     user: "${KASM_UID?}:${KASM_GID?}"
-    image: "kasmweb/kasm-guac:1.14.0"
+    image: "kasmweb/kasm-guac:1.15.0"
     read_only: true
     networks:
       - kasm_default_network
     volumes:
-      - /opt/kasm/1.14.0:/opt/kasm/current
-      - /opt/kasm/1.14.0/tmp/guac:/tmp
+      - /opt/kasm/1.15.0:/opt/kasm/current
+      - /opt/kasm/1.15.0/tmp/guac:/tmp
     restart: always
     logging:
       driver: "json-file"
@@ -140,12 +140,12 @@ services:
     networks:
       - kasm_default_network
     volumes:
-      - /opt/kasm/1.14.0/conf/nginx:/etc/nginx/conf.d:ro
-      - /opt/kasm/1.14.0/certs/kasm_nginx.key:/etc/ssl/private/kasm_nginx.key
-      - /opt/kasm/1.14.0/certs/kasm_nginx.crt:/etc/ssl/certs/kasm_nginx.crt
-      - /opt/kasm/1.14.0/www:/srv/www:ro
-      - /opt/kasm/1.14.0/log/nginx:/var/log/external/nginx/
-      - /opt/kasm/1.14.0/log/logrotate:/var/log/external/logrotate/
+      - /opt/kasm/1.15.0/conf/nginx:/etc/nginx/conf.d:ro
+      - /opt/kasm/1.15.0/certs/kasm_nginx.key:/etc/ssl/private/kasm_nginx.key
+      - /opt/kasm/1.15.0/certs/kasm_nginx.crt:/etc/ssl/certs/kasm_nginx.crt
+      - /opt/kasm/1.15.0/www:/srv/www:ro
+      - /opt/kasm/1.15.0/log/nginx:/var/log/external/nginx/
+      - /opt/kasm/1.15.0/log/logrotate:/var/log/external/logrotate/
     depends_on:
       - kasm_manager
       - kasm_api
@@ -159,7 +159,7 @@ services:
         max-size: "10m"
         max-file: "20"
 volumes:
-  kasm_db_1.14.0:
+  kasm_db_1.15.0:
     external: true
 networks:
   kasm_default_network:

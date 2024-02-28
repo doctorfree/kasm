@@ -1,4 +1,4 @@
-ARG BASE_TAG="1.14.0"
+ARG BASE_TAG="1.15.0"
 FROM kasmweb/ubuntu-focal-desktop:$BASE_TAG
 USER root
 
